@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 
         Vector2 movement = new Vector2(h, 0f);
 
-        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 2)
+        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 1)
         {
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
