@@ -8,8 +8,7 @@ public class PlayerHealth : MonoBehaviour {
     // Use this for initialization
     void Start() {
         health_state = health_max;
-        InvokeRepeating("decreaseHealth", 1f, 1f);
-;    }
+    }
 
     void decreaseHealth() {
         if (health_state>=0)
