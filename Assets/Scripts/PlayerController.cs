@@ -3,6 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+    public AudioClip Land;
+    public AudioClip Jump;
+
+    AudioSource aus;
     Rigidbody2D rb;
 
     public string InputKey;
@@ -14,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+        aus = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +29,10 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 1)
         {
+            aus.clip = Jump;
+            aus.Play();
+
+
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
         }
@@ -32,9 +41,13 @@ public class PlayerController : MonoBehaviour {
 
         if(rb.velocity.y == 0)
         {
-            jumpCount = 0;   
+            if(jumpCount > 0)
+            {
+                aus.clip = Land;
+                aus.Play();
+            }
+            jumpCount = 0;
         }
-
         RotatePlayer();
     }
 
