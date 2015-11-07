@@ -5,6 +5,8 @@ public class AbilityHandler : MonoBehaviour {
     public Transform Totem;
     private AttackScript currentAbility;
 
+    float Timer;
+
     void Start()
     {
         Totem.GetComponent<TotemScript>().notifyAttack += UpdateAbility;
@@ -14,9 +16,14 @@ public class AbilityHandler : MonoBehaviour {
     void Update() {
         if (Input.GetButtonDown("Attack1_" + GetComponent<PlayerController>().InputKey))
         {
-            Debug.Log("ATTOCK " + currentAbility.GetType().Name);
-            currentAbility.UseAttack(transform);
+
+            if (Timer >= currentAbility.coolDownTime)
+            {
+                currentAbility.UseAttack(transform);
+                Timer = 0.0F;
+            }
         }
+        Timer += Time.deltaTime;
     }
 
     public void UpdateAbility(TotemScript.AttackModifier newState) {
