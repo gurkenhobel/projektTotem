@@ -62,6 +62,22 @@ public class TotemScript : MonoBehaviour {
         t.localRotation = Quaternion.Euler(def + new Vector3(0, ry, 0));
     }
 
+    private void setTopTexture(Texture albedo) {
+        var flag = top.GetComponentInChildren<MeshRenderer>();
+        flag.material.mainTexture = albedo;
+    }
+
+    private void setMidTexture(Texture albedo, Texture metallic) {
+        var shield = mid.GetComponentInChildren<MeshRenderer>();
+        shield.material.mainTexture = albedo;
+        shield.material.SetTexture("metallic", metallic);
+    }
+
+    private void setBottomTexture(Texture albedo) {
+        var paper = bottom.GetComponentInChildren<MeshRenderer>();
+        paper.material.mainTexture = albedo;
+    }
+    
 	// Use this for initialization
 	void Start () {
         movement = MovementModifier.Normal;
@@ -71,6 +87,30 @@ public class TotemScript : MonoBehaviour {
         localMovDef = top.transform.localRotation.eulerAngles;
         localAttDef = mid.transform.localRotation.eulerAngles;
         localDisDef = bottom.transform.localRotation.eulerAngles;
+
+        notifyMovement += (m) => {
+            switch (m) {
+                case MovementModifier.GravityReduction:
+                    setTopTexture(Resources.Load("gravred_albedo") as Texture);
+                    break;
+            }
+        };
+
+        notifyAttack += (a) => {
+            switch (a) {
+                case AttackModifier.Fireball:
+                    setMidTexture(Resources.Load("fireball_albedo") as Texture, Resources.Load("fireball_metallic") as Texture);
+                    break;
+            }
+        };
+
+        notifyDisplay += (d) => {
+            switch (display) {
+                case DisplayModifier.Psychedelic:
+                    setBottomTexture(Resources.Load("psychedelic_albedo") as Texture);
+                    break;
+            }
+        };
 	}
 
 	// Update is called once per frame
