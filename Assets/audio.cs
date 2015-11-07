@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class audio : MonoBehaviour {
-    public AudioSource aus;
+    private AudioSource aus;
     float timeStopped = 0;
 	// Use this for initialization
 	void Start () {
