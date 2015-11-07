@@ -10,8 +10,7 @@ public class TotemScript : MonoBehaviour {
         Normal,
         GravityReduction,
         SpeedUp,
-        Bounce,
-        PullDown
+        Bounce
     }
 
     public enum AttackModifier {
@@ -19,8 +18,7 @@ public class TotemScript : MonoBehaviour {
         Fireball,
         Soulreaper,
         Reverse,
-        Balanced,
-        Boomerang
+        Balanced
     }
 
     public enum DisplayModifier {

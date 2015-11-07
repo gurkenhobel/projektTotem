@@ -11,7 +11,7 @@ public class ShaderTriggerScript : MonoBehaviour {
     private Transform totem;
 
     [SerializeField]
-    private Shader wobbly, psychedelic, drunk;
+    private Shader wobbly, psychedelic, drunk, reverse;
 
     // Use this for initialization
     void Start () {
@@ -48,6 +48,9 @@ public class ShaderTriggerScript : MonoBehaviour {
                         p.GetComponentInChildren<Light>().enabled = true;
                     }
                     light.enabled = false;
+                    break;
+                case TotemScript.DisplayModifier.Reverse:
+                    shader = reverse;
                     break;
             }
             if (shader != null) mat = new UnityEngine.Material(shader);
