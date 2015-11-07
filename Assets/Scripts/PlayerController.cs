@@ -42,20 +42,15 @@ public class PlayerController : MonoBehaviour {
             JumpStart = Time.time;
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
+            animator.SetBool("Jumping", true);
         }
 
-        Debug.Log("tooFast: " + tooFast);
-        Debug.Log("MaxHorizontalSpeed: " + MaxHorizontalSpeed);
-        Debug.Log("h: " + h);
-        Debug.Log("Speed: " + Mathf.Abs(rb.velocity.x));
 
         if (Mathf.Sign(movement.x) != Math.Sign(rb.velocity.x)) {
             // Faster braking
             rb.AddForce(new Vector2(movement.x * 3, movement.y));
         } else rb.AddForce(movement);
 
-        animator.SetBool("Jumping", true);
-        animator.SetBool("Walking", Math.Abs(h) > 0.3F);
     }
 
     // Update is called once per frame
@@ -72,6 +67,8 @@ public class PlayerController : MonoBehaviour {
 
             animator.SetBool("Jumping", false);
         }
+
+        animator.SetBool("Walking", Math.Abs(rb.velocity.x) > 0.3F);
     }
 
     void RotatePlayer() {
