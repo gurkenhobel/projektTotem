@@ -36,6 +36,7 @@ public class TotemScript : MonoBehaviour {
     [SerializeField]
     private float movementTime = 30, attackTime = 60, displayTime = 90;
     private float movementState, attackState, displayState;
+    private Vector3 localMovDef, localAttDef, localDisDef;
 
     public MovementModifier movement { get; private set; }
     public AttackModifier attack { get; private set; }
@@ -55,10 +56,10 @@ public class TotemScript : MonoBehaviour {
         return newVariant;
     }
 
-    private void updateRotation(float state, Transform t) {
+    private void updateRotation(float state, Transform t, Vector3 def) {
         var x = (float) Math.Max(0, state - 0.8) * 5;
         float ry = (float) Math.Sin(Math.Max(0, x * Math.PI * 4) * 10) * x * x * 30;
-        t.rotation = Quaternion.Euler(new Vector3(0, ry, 0));
+        t.localRotation = Quaternion.Euler(def + new Vector3(0, ry, 0));
     }
 
 	// Use this for initialization
@@ -66,6 +67,10 @@ public class TotemScript : MonoBehaviour {
         movement = MovementModifier.Normal;
         attack = AttackModifier.Punch;
         display = DisplayModifier.Clear;
+
+        localMovDef = top.transform.localRotation.eulerAngles;
+        localAttDef = mid.transform.localRotation.eulerAngles;
+        localDisDef = bottom.transform.localRotation.eulerAngles;
 	}
 
 	// Update is called once per frame
@@ -93,8 +98,8 @@ public class TotemScript : MonoBehaviour {
             displayState = 0F;
         }
 
-        updateRotation(movementState, top.transform);
-        updateRotation(attackState, mid.transform);
-        updateRotation(displayState, bottom.transform);
+        updateRotation(movementState, top.transform, localMovDef);
+        updateRotation(attackState, mid.transform, localAttDef);
+        updateRotation(displayState, bottom.transform, localDisDef);
     }
 }
