@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerController : MonoBehaviour {
 
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         rb.AddForce(new Vector2(Mathf.Sign(movement.x) != Mathf.Sign(rb.velocity.x) ? movement.x * 3 : movement.x, movement.y));
 
         animator.SetBool("Jumping", true);
-        animator.SetBool("Walking", h != 0);
+        animator.SetBool("Walking", Math.Abs(h) > 0.3F);
 
         if (rb.velocity.y == 0) {
             if (jumpCount > 0) {
