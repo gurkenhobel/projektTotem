@@ -42,9 +42,13 @@ public class TotemScript : MonoBehaviour {
     public AttackModifier attack { get; private set; }
     public DisplayModifier display { get; private set; }
 
+    public bool bouncy { get; private set; }
+
     public TotemChanged<MovementModifier> notifyMovement;
     public TotemChanged<AttackModifier> notifyAttack;
     public TotemChanged<DisplayModifier> notifyDisplay;
+
+    private bool lowGravity;
 
     private T updateEnum<T>(T current) {
         var variants = Enum.GetValues(typeof(T));
@@ -90,8 +94,25 @@ public class TotemScript : MonoBehaviour {
 
         notifyMovement += (m) => {
             switch (m) {
+                case MovementModifier.Normal:
+                    // Nothing to be done here.
+                    break;
                 case MovementModifier.GravityReduction:
                     setTopTexture(Resources.Load("gravred_albedo") as Texture);
+                    lowGravity = true;
+                    UnityEngine.Physics2D.gravity /= 2;
+                    break;
+                case MovementModifier.Bounce:
+                    bouncy = true;
+                    break;
+                case MovementModifier.SpeedUp:
+                    Time.timeScale = 1.4F;
+                    break;
+                default:
+                    bouncy = false;
+                    UnityEngine.Physics2D.gravity *= 2;
+                    lowGravity = false;
+                    Time.timeScale = 1;
                     break;
             }
         };
