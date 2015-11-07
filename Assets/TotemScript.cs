@@ -149,6 +149,8 @@ public class TotemScript : MonoBehaviour {
 
         if (displayState >= 1F) {
             display = updateEnum(display);
+            if (display != DisplayModifier.Clear && UnityEngine.Random.value > 0.5)
+                display = DisplayModifier.Clear;
             if (notifyDisplay != null) notifyDisplay(display);
             displayState = 0F;
         }
