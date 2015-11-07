@@ -15,7 +15,7 @@ public class PlayerFollowingCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        List<Vector3> playerPositions = playerSpawner.GetPlayerPositions();
+        List<Vector3> playerPositions = playerSpawner.GetLivingPlayerPositions();
 
         if (playerPositions.Count == 0)
         {

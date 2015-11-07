@@ -10,11 +10,12 @@ public class PlayerSpawner : MonoBehaviour
     bool onlyOnePlayerActive;
     List<PlayerController> currentPlayers = new List<PlayerController>();
 
-    public List<Vector3> GetPlayerPositions()
+    public List<Vector3> GetLivingPlayerPositions()
     {
         List<Vector3> pPos = new List<Vector3>();
         foreach (PlayerController pC in currentPlayers)
-            pPos.Add(pC.transform.position);
+            if(!pC.isDead)
+                pPos.Add(pC.transform.position);
         return pPos;
     }
 
@@ -67,7 +68,7 @@ public class PlayerSpawner : MonoBehaviour
                 numDeadPlayers++;
             }
         }
-        if (currentPlayers.Count == numDeadPlayers + 1 && !onlyOnePlayerActive)
+        if (currentPlayers.Count <= numDeadPlayers + 1 && !onlyOnePlayerActive)
         {
             RespawnPlayers();
         }
