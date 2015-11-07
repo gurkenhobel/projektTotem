@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     public float HorizontalSpeed = 50.0f;
     public float VerticalSpeed = 400.0f;
     public float MaxHorizontalSpeed = 20;
-    private int jumpCount;
+    private int jumpCount = 0;
     private float JumpStart = 0;
 
     // Use this for initialization
@@ -27,19 +27,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (GetComponent<Transform>().position.y < -6) {
-            Debug.Log(gameObject.tag + " is out of map.");
+        if (rb.position.y < -6) {
+            Debug.Log(gameObject.name + " is out of map.");
         }
         bool tooFast = Mathf.Abs(rb.velocity.x) > MaxHorizontalSpeed;
         var input = Input.GetAxis("Horizontal_" + InputKey);
         var h = tooFast ? MaxHorizontalSpeed - (HorizontalSpeed * input) : HorizontalSpeed * input;
 
         Vector2 movement = new Vector2(-h, 0f);
-        if (Time.time - JumpStart > 0.2F) JumpStart = 0;
-        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount == 0 && JumpStart == 0) {
+        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 2) {
             aus.clip = Jump;
             aus.Play();
-            JumpStart = Time.time;
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
             animator.SetBool("Jumping", true);
