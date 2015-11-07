@@ -10,7 +10,7 @@ public class AbilityHandler : MonoBehaviour {
     void Start()
     {
         Totem.GetComponent<TotemScript>().notifyAttack += UpdateAbility;
-        UpdateAbility(TotemScript.AttackModifier.Fireball);
+        UpdateAbility(TotemScript.AttackModifier.Punch);
     }
     
     void Update() {
