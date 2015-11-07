@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Punch : AttackScript
 {
+    public float Damage = 5;
 
     public override void UseAttack(Transform attackingPlayerTransform)
     {

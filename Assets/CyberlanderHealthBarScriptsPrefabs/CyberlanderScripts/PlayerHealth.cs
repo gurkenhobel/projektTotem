@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerHealth : MonoBehaviour {
     public float health_max = 100f, health_state = 0f;
@@ -8,19 +7,18 @@ public class PlayerHealth : MonoBehaviour {
     // Use this for initialization
     void Start() {
         health_state = health_max;
-        InvokeRepeating("decreaseHealth", 1f, 1f);
 ;    }
 
-    void decreaseHealth() {
+    public void decreaseHealth(float value) {
         if (health_state>=0)
-        health_state -= 2f;
+        health_state -= 2f * value;
         float health_calculated = health_state / health_max;
         setHealthBar(health_calculated);
     }
 
-    void increaseHealth() {
+    public void increaseHealth(float value) {
         if (health_state<=100)
-        health_state += 2f;
+        health_state += 2f * value;
         float health_calculated = health_state / health_max;
         setHealthBar(health_calculated);
     }
