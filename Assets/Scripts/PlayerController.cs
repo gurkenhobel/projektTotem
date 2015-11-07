@@ -52,9 +52,15 @@ public class PlayerController : MonoBehaviour {
 
         animator.SetBool("Jumping", true);
         animator.SetBool("Walking", Math.Abs(h) > 0.3F);
+    }
 
-        if (rb.velocity.y == 0) {
-            if (jumpCount > 0) {
+    // Update is called once per frame
+    void Update() {
+        RotatePlayer();
+        if (rb.velocity.y == 0)
+        {
+            if (jumpCount > 0)
+            {
                 aus.clip = Land;
                 aus.Play();
             }
@@ -62,11 +68,6 @@ public class PlayerController : MonoBehaviour {
 
             animator.SetBool("Jumping", false);
         }
-    }
-
-    // Update is called once per frame
-    void Update() {
-        RotatePlayer();
     }
 
     void RotatePlayer() {
