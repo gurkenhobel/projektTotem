@@ -10,7 +10,13 @@ public class PlayerSpawner : MonoBehaviour
     bool onlyOnePlayerActive;
     List<PlayerController> currentPlayers = new List<PlayerController>();
 
-
+    public List<Vector3> GetPlayerPositions()
+    {
+        List<Vector3> pPos = new List<Vector3>();
+        foreach (PlayerController pC in currentPlayers)
+            pPos.Add(pC.transform.position);
+        return pPos;
+    }
 
 	// Use this for initialization
 	void Start ()
