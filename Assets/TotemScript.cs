@@ -121,6 +121,9 @@ public class TotemScript : MonoBehaviour {
                 case DisplayModifier.Wobbly:
                     setBottomTexture(Resources.Load("wobbely_albedo") as Texture);
                     break;
+                case DisplayModifier.Reverse:
+                    setBottomTexture(Resources.Load("reverse_albedo") as Texture);
+                    break;
             }
         };
 	}
