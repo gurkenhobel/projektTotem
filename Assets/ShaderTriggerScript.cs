@@ -24,6 +24,10 @@ public class ShaderTriggerScript : MonoBehaviour {
             var sun = GameObject.Find("Sun");
             var light = sun.GetComponent<Light>();
             light.enabled = true;
+            var players = Transform.FindObjectsOfType<PlayerController>();
+            foreach (PlayerController p in players) {
+                p.GetComponentInChildren<Light>().enabled = true;
+            }
 
             switch (d) {
                 case TotemScript.DisplayModifier.Wobbly:
@@ -40,8 +44,9 @@ public class ShaderTriggerScript : MonoBehaviour {
                     Camera.main.backgroundColor = Color.black;
                     
                     RenderSettings.ambientIntensity = 0;
-                    var players = Transform.FindObjectsOfType<PlayerController>();
-
+                    foreach (PlayerController p in players) {
+                        p.GetComponentInChildren<Light>().enabled = true;
+                    }
                     light.enabled = false;
                     break;
             }
