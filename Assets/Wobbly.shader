@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Psychedelic"
+﻿Shader "Hidden/Wobbly"
 {
 	Properties
 	{
@@ -14,7 +14,6 @@
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#pragma debug
 			
 			#include "UnityCG.cginc"
 
@@ -42,15 +41,14 @@
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.uv);
-				float t = sin(_Time.x) * 20;
-				float v = sin(_Time.w);
-				half4 m;
-				m.r = (1 + sin(v * t + 1 + i.uv.x)) / .6 * col.r;
-				m.g = (1 - cos(t * 2 + 2 + i.uv.y)) / v * .8 * col.g; 
-				m.b = (1 + sin(t * 3 + 3 + i.uv.x + (v * i.uv.y))) / 2 * col.b;
-				m.a = col.a;
-				return col / 2.0 + m / 2.0;
+				float2 v = float2(i.uv.x
+					+ sin(_Time.w * 4) / _ScreenParams.x * 10
+					- cos(_Time.z * 3) / _ScreenParams.x * 20,
+					i.uv.y
+					+ cos(_Time.w * 4) / _ScreenParams.y * 10
+					- sin(_Time.z * 3) / _ScreenParams.y * 20);
+				fixed4 col = tex2D(_MainTex, v);
+				return col;
 			}
 			ENDCG
 		}
