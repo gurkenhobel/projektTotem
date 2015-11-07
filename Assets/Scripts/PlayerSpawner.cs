@@ -56,11 +56,6 @@ public class PlayerSpawner : MonoBehaviour
             {
                 currentPlayers.RemoveAt(i);
             }
-            else if (player.transform.position.y < -100F )
-            {
-                Destroy(player.gameObject);
-                currentPlayers.RemoveAt(i);
-            }
             else if (player.isDead)
             {
                 numDeadPlayers++;

@@ -19,7 +19,8 @@ public class AbilityHandler : MonoBehaviour {
 
             if (Timer >= currentAbility.coolDownTime)
             {
-                currentAbility.UseAttack(transform);
+                if(!GetComponent<PlayerController>().isDead)
+                    currentAbility.UseAttack(transform);
                 Timer = 0.0F;
             }
         }
