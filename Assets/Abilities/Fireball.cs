@@ -15,7 +15,7 @@ public class Fireball : AttackScript
         Vector3 playerDir = attackingPlayerTransform.forward;
 
         Rigidbody2D fireBall = (Rigidbody2D)Instantiate(FireballPrefab, playerPos + playerDir * SpawnDistance, Quaternion.identity);
-        fireBall.AddForce(playerDir * 500);
+        fireBall.AddForce(playerDir * 50);
 
     }
 }
