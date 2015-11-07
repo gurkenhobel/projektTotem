@@ -13,8 +13,9 @@ public class FireAttack : AttackScript {
 	
 	}
 
-    public override void UseAttack()
+    public override void UseAttack(Transform attackingPlayerTransform)
     {
         //Todo epic shit
+        
     }
 }

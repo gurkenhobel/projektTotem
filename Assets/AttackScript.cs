@@ -13,7 +13,7 @@ public abstract class AttackScript : MonoBehaviour {
 	
 	}
 
-    public virtual void UseAttack()
+    public virtual void UseAttack(Transform attackingPlayerTransform)
     {
         
     }

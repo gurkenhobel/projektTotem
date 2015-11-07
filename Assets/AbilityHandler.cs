@@ -23,7 +23,7 @@ public class AbilityHandler : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack1_Keyboard"))
         {
-            currentAbility.UseAttack();
+            currentAbility.UseAttack(transform);
 
         }
 
