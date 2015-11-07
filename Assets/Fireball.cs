@@ -3,26 +3,18 @@ using System.Collections;
 
 public class Fireball : AttackScript
 {
-    void Update()
-    {
-        if (Timer > 0.0F)
-        {
-            Timer -= Time.deltaTime;
-        }
-    }
+    public Rigidbody2D FireballPrefab;
 
     public override void UseAttack(Transform attackingPlayerTransform)
     {
-        Debug.Log("Want to use Fireball");
-        if(Timer <= 0.0F)
-        {
-            //Todo epic shit from here..
-            Debug.Log("actually use Fireball");
-            
-            //..to here
+        //Todo epic shit from here..
+        Debug.Log("Fireball");
 
-            //reset Timer
-            Timer = coolDownTime;
-        }
+        Vector3 playerPos = attackingPlayerTransform.position;
+        Vector3 playerDir = attackingPlayerTransform.forward;
+
+        Rigidbody2D fireBall = (Rigidbody2D)Instantiate(FireballPrefab, playerPos + playerDir * 1.3F, Quaternion.identity);
+        fireBall.AddForce(playerDir * 500);
+
     }
 }
