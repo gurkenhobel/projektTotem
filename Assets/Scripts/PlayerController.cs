@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour {
         float h = HorizontalSpeed * Input.GetAxis("Horizontal_" + InputKey);
 
         Vector2 movement = new Vector2(h, 0f);
-        Debug.Log("update" + Input.GetButtonDown("Jump_" + InputKey));
 
         if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 2)
         {
@@ -48,22 +47,7 @@ public class PlayerController : MonoBehaviour {
                 aus.Play();
             }
             jumpCount = 0;
-            Debug.Log("on floor");  
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Floor")
-        {
-            //print("TRUE");
-
-            //aus.Stop();
-            //aus.clip = Land;
-            //aus.Play();
-            //aus.clip = Jump;
-        }
-
         RotatePlayer();
     }
 
