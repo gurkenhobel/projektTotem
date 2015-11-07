@@ -13,6 +13,9 @@ public class Punch : AttackScript
         Vector3 playerDir = attackingPlayerTransform.forward;
 
         var opfer = Physics2D.Raycast(playerPos + playerDir, playerDir, 1.5f);
-        opfer.rigidbody.AddForce(playerDir * 500);
+        if (opfer)
+        {
+            opfer.rigidbody.AddForce(playerDir * 750);
+        }
     }
 }
