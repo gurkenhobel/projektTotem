@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
             JumpStart = Time.time;
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
+            animator.SetBool("Jumping", true);
         }
 
         Debug.Log("tooFast: " + tooFast);
@@ -47,8 +48,6 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("Speed: " + Mathf.Abs(rb.velocity.x));
         rb.AddForce(new Vector2(Mathf.Sign(movement.x) != Mathf.Sign(rb.velocity.x) ? movement.x * 3 : movement.x, movement.y));
 
-        animator.SetBool("Jumping", true);
-        animator.SetBool("Walking", Math.Abs(h) > 0.3F);
     }
 
     // Update is called once per frame
@@ -65,6 +64,8 @@ public class PlayerController : MonoBehaviour {
 
             animator.SetBool("Jumping", false);
         }
+
+        animator.SetBool("Walking", Math.Abs(rb.velocity.x) > 0.3F);
     }
 
     void RotatePlayer() {
