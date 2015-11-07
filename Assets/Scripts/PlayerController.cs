@@ -4,6 +4,8 @@ using System;
 
 public class PlayerController : MonoBehaviour {
 
+    public TotemScript totem;
+
     public AudioClip Land;
     public AudioClip Jump;
 
@@ -72,5 +74,17 @@ public class PlayerController : MonoBehaviour {
     void RotatePlayer() {
         if (Input.GetAxis("Horizontal_" + InputKey) != 0)
             transform.rotation = Quaternion.Euler(0, -90 * Mathf.Sign(Input.GetAxis("Horizontal_" + InputKey)), 0);
+    }
+
+    void OnCollisionEnter2D(Collision2D collider) {
+        if (totem.bouncy) {
+            var other = collider.rigidbody.GetComponent<PlayerController>();
+            if (other != null) {
+                Debug.Log("Met!");
+                var force = transform.position - other.transform.position;
+                var ownRB = GetComponent<Rigidbody2D>();
+                ownRB.AddForce(force * 600);
+            }
+        }
     }
 }
