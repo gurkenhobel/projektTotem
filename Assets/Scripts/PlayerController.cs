@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour {
 
     Rigidbody2D rb;
 
+    public string InputKey;
+
     public float HorizontalSpeed = 2.0f;
     public float VerticalSpeed = 2.0f;
     private int jumpCount;
@@ -16,11 +18,11 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float h = HorizontalSpeed * Input.GetAxis("Horizontal");
+        float h = HorizontalSpeed * Input.GetAxis("Horizontal_" + InputKey);
         
         Vector2 movement = new Vector2(h, 0f);
 
-        if (Input.GetButtonDown("Jump") && jumpCount < 2)
+        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 2)
         {
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
