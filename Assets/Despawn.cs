@@ -9,5 +9,9 @@ public class Despawn : MonoBehaviour {
 	void Update () {
         LifeTime -= Time.deltaTime;
 
+        if (LifeTime < 0.0F)
+        {
+            Destroy(gameObject);
+        }
 	}
 }
