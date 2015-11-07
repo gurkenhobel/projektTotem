@@ -23,6 +23,13 @@ public class ExplosionForceOnContact : MonoBehaviour
             if (distance < ExplosionRadius)
             {
                 opfer.attachedRigidbody.AddForce(explosionToOpfer.normalized * ExplosionForce * Mathf.Lerp(1F,0F, distance / ExplosionRadius));
+
+                PlayerHealth opferHealth = opfer.GetComponent<PlayerHealth>();
+                if (opferHealth != null)
+                {
+                    float damage = 20;
+                    opferHealth.health_state -= damage * Mathf.Lerp(1F, 0F, distance / ExplosionRadius);
+                }
             }
         }
 

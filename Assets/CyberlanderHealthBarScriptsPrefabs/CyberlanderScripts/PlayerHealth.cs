@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour {
     // Use this for initialization
     void Start() {
         health_state = health_max;
-;    }
+    }
 
     public void decreaseHealth(float value) {
         if (health_state>=0)
