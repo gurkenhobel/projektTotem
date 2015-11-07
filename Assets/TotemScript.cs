@@ -63,18 +63,18 @@ public class TotemScript : MonoBehaviour {
     }
 
     private void setTopTexture(Texture albedo) {
-        var flag = top.GetComponentInChildren<MeshRenderer>();
+        var flag = top.GetComponentsInChildren<MeshRenderer>()[1];
         flag.material.mainTexture = albedo;
     }
 
     private void setMidTexture(Texture albedo, Texture metallic) {
-        var shield = mid.GetComponentInChildren<MeshRenderer>();
+        var shield = mid.GetComponentsInChildren<MeshRenderer>()[1];
         shield.material.mainTexture = albedo;
         shield.material.SetTexture("metallic", metallic);
     }
 
     private void setBottomTexture(Texture albedo) {
-        var paper = bottom.GetComponentInChildren<MeshRenderer>();
+        var paper = bottom.GetComponentsInChildren<MeshRenderer>()[1];
         paper.material.mainTexture = albedo;
     }
     
@@ -106,8 +106,20 @@ public class TotemScript : MonoBehaviour {
 
         notifyDisplay += (d) => {
             switch (display) {
+                case DisplayModifier.Clear:
+                    setBottomTexture(Resources.Load("bottom_clear") as Texture);
+                    break;
                 case DisplayModifier.Psychedelic:
                     setBottomTexture(Resources.Load("psychedelic_albedo") as Texture);
+                    break;
+                case DisplayModifier.Darkness:
+                    setBottomTexture(Resources.Load("darkness_albedo") as Texture);
+                    break;
+                case DisplayModifier.Shake:
+                    setBottomTexture(Resources.Load("drunk_albedo") as Texture);
+                    break;
+                case DisplayModifier.Wobbly:
+                    setBottomTexture(Resources.Load("wobbely_albedo") as Texture);
                     break;
             }
         };
