@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         float h = HorizontalSpeed * Input.GetAxis("Horizontal_" + InputKey);
 
-        Vector2 movement = new Vector2(h, 0f);
+        Vector2 movement = new Vector2(-h, 0f);
 
         animator.SetBool("Jumping", true);
         animator.SetBool("Walking", h == 0 ? false : true);
@@ -60,6 +60,6 @@ public class PlayerController : MonoBehaviour {
     void RotatePlayer()
     {
         if (Input.GetAxis("Horizontal_" + InputKey) != 0)
-            transform.rotation = Quaternion.Euler(0, 90 * Mathf.Sign(Input.GetAxis("Horizontal_" + InputKey)), 0);
+            transform.rotation = Quaternion.Euler(0, -90 * Mathf.Sign(Input.GetAxis("Horizontal_" + InputKey)), 0);
     }
 }
