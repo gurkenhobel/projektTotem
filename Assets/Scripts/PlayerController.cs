@@ -48,7 +48,11 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("MaxHorizontalSpeed: " + MaxHorizontalSpeed);
         Debug.Log("h: " + h);
         Debug.Log("Speed: " + Mathf.Abs(rb.velocity.x));
-        rb.AddForce(new Vector2(Mathf.Sign(movement.x) != Mathf.Sign(rb.velocity.x) ? movement.x * 3 : movement.x, movement.y));
+
+        if (Mathf.Sign(movement.x) != Math.Sign(rb.velocity.x)) {
+            // Faster braking
+            rb.AddForce(new Vector2(movement.x * 3, movement.y));
+        } else rb.AddForce(movement);
 
         animator.SetBool("Jumping", true);
         animator.SetBool("Walking", Math.Abs(h) > 0.3F);
