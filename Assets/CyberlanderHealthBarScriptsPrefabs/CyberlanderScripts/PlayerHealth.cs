@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
     public float health_max = 100f, health_state = 0f;
     public GameObject healthBar;
+    public Animator animator;
 
     // Use this for initialization
     void Start() {
@@ -14,6 +16,8 @@ public class PlayerHealth : MonoBehaviour {
         health_state -= 2f * value;
         float health_calculated = health_state / health_max;
         setHealthBar(health_calculated);
+        if (health_state <= 0)
+            animator.SetTrigger("Die");
     }
 
     public void increaseHealth(float value) {

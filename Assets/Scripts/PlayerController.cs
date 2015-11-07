@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
 
     public string InputKey;
 
+    PlayerHealth ph;
+
     public Animator animator;
 
     public float HorizontalSpeed = 50.0f;
@@ -30,7 +32,8 @@ public class PlayerController : MonoBehaviour {
         aus = GetComponent<AudioSource>();
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (rb.position.y < -6) {
             Debug.Log(gameObject.name + " is out of map.");
         }
@@ -47,12 +50,14 @@ public class PlayerController : MonoBehaviour {
             animator.SetBool("Jumping", true);
         }
 
-
-        if (Mathf.Sign(movement.x) != Math.Sign(rb.velocity.x)) {
-            // Faster braking
-            rb.AddForce(new Vector2(movement.x * 3, movement.y));
-        } else rb.AddForce(movement);
-
+        
+            if (Mathf.Sign(movement.x) != Math.Sign(rb.velocity.x))
+            {
+                // Faster braking
+                rb.AddForce(new Vector2(movement.x*3, movement.y));
+            }
+            else rb.AddForce(movement);
+        
     }
 
     // Update is called once per frame
