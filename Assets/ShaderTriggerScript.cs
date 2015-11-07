@@ -26,7 +26,7 @@ public class ShaderTriggerScript : MonoBehaviour {
             light.enabled = true;
             var players = Transform.FindObjectsOfType<PlayerController>();
             foreach (PlayerController p in players) {
-                p.GetComponentInChildren<Light>().enabled = true;
+                p.GetComponentInChildren<Light>().enabled = false;
             }
 
             switch (d) {
