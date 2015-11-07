@@ -7,18 +7,25 @@ public class AbilityHandler : MonoBehaviour {
 
     void Start() {
         Totem.GetComponent<TotemScript>().notifyAttack += UpdateAbility;
+        Debug.Log(" uia");
+        UpdateAbility(TotemScript.AttackModifier.Fireball);
     }
-
+    
     void Update() {
-        if (Input.GetButtonDown("Attack1_Keyboard")) {
+        if (Input.GetButtonDown("Attack1_" + GetComponent<PlayerController>().InputKey))
+        {
+            Debug.Log("ATTOCK " + currentAbility.GetType().Name);
             currentAbility.UseAttack(transform);
         }
     }
 
     public void UpdateAbility(TotemScript.AttackModifier newState) {
         var AttackScripts = AllAbilities.GetComponents<AttackScript>();
+        Debug.Log("atkScripts.size = " + AttackScripts.Length);
         foreach (AttackScript atkScript in AttackScripts) {
-            if (atkScript.name == newState.ToString()) {
+            Debug.Log(atkScript.GetType().Name + " " + newState.ToString());
+            if (atkScript.GetType().Name == newState.ToString())
+            {
                 currentAbility = atkScript;
                 break;
             }

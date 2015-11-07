@@ -40,10 +40,6 @@ public class PlayerController : MonoBehaviour {
             jumpCount++;
         }
 
-        Debug.Log("tooFast: " + tooFast);
-        Debug.Log("MaxHorizontalSpeed: " + MaxHorizontalSpeed);
-        Debug.Log("h: " + h);
-        Debug.Log("Speed: " + Mathf.Abs(rb.velocity.x));
         rb.AddForce(new Vector2(Mathf.Sign(movement.x) != Mathf.Sign(rb.velocity.x) ? movement.x * 3 : movement.x, movement.y));
 
         animator.SetBool("Jumping", true);

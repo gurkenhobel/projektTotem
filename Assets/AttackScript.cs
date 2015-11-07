@@ -3,15 +3,8 @@ using System.Collections;
 
 public abstract class AttackScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public float coolDownTime;
+    protected float Timer;
 
     public virtual void UseAttack(Transform attackingPlayerTransform)
     {
