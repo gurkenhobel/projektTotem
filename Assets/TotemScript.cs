@@ -11,7 +11,6 @@ public class TotemScript : MonoBehaviour {
         GravityReduction,
         SpeedUp,
         Bounce,
-        Reverse,
         PullDown
     }
 
@@ -27,7 +26,7 @@ public class TotemScript : MonoBehaviour {
     public enum DisplayModifier {
         Clear,
         Wobbly,
-        Fireworks,
+        Reverse,
         Darkness,
         Shake,
         Psychedelic
