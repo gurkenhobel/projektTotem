@@ -43,10 +43,6 @@ public class PlayerController : MonoBehaviour {
             animator.SetBool("Jumping", true);
         }
 
-        Debug.Log("tooFast: " + tooFast);
-        Debug.Log("MaxHorizontalSpeed: " + MaxHorizontalSpeed);
-        Debug.Log("h: " + h);
-        Debug.Log("Speed: " + Mathf.Abs(rb.velocity.x));
 
         if (Mathf.Sign(movement.x) != Math.Sign(rb.velocity.x)) {
             // Faster braking
