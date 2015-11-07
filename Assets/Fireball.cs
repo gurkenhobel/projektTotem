@@ -13,10 +13,11 @@ public class Fireball : AttackScript
 
     public override void UseAttack(Transform attackingPlayerTransform)
     {
+        Debug.Log("Want to use Fireball");
         if(Timer <= 0.0F)
         {
             //Todo epic shit from here..
-            Debug.Log("Fireball");
+            Debug.Log("actually use Fireball");
             
             //..to here
 

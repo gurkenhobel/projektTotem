@@ -5,9 +5,9 @@ public class AbilityHandler : MonoBehaviour {
     public Transform Totem;
     private AttackScript currentAbility;
 
-    void Start() {
+    void Start()
+    {
         Totem.GetComponent<TotemScript>().notifyAttack += UpdateAbility;
-        Debug.Log(" uia");
         UpdateAbility(TotemScript.AttackModifier.Fireball);
     }
     
@@ -21,7 +21,6 @@ public class AbilityHandler : MonoBehaviour {
 
     public void UpdateAbility(TotemScript.AttackModifier newState) {
         var AttackScripts = AllAbilities.GetComponents<AttackScript>();
-        Debug.Log("atkScripts.size = " + AttackScripts.Length);
         foreach (AttackScript atkScript in AttackScripts) {
             Debug.Log(atkScript.GetType().Name + " " + newState.ToString());
             if (atkScript.GetType().Name == newState.ToString())
