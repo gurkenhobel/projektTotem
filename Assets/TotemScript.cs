@@ -59,7 +59,8 @@ public class TotemScript : MonoBehaviour {
     }
 
     private void updateRotation(float state, Transform t) {
-        float ry = (float) Math.Sin(Math.Max(0, (state - 0.8) * 5 * Math.PI * 4) * 10) * 30;
+        var x = (float) Math.Max(0, state - 0.8) * 5;
+        float ry = (float) Math.Sin(Math.Max(0, x * Math.PI * 4) * 10) * x * x * 30;
         t.rotation = Quaternion.Euler(new Vector3(0, ry, 0));
     }
 
