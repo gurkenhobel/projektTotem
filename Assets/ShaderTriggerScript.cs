@@ -17,13 +17,20 @@ public class ShaderTriggerScript : MonoBehaviour {
     void Start () {
         var t = totem.GetComponent<TotemScript>();
         t.notifyDisplay += (d) => {
+            d = TotemScript.DisplayModifier.Darkness;
             Debug.Log(d.ToString());
 
             Camera.main.clearFlags = CameraClearFlags.Skybox;
             RenderSettings.ambientIntensity = 1;
+            RenderSettings.reflectionIntensity = 1;
             var sun = GameObject.Find("Sun");
-            var light = sun.GetComponent<Light>();
-            light.enabled = true;
+            var spot = GameObject.Find("Spot");
+            var sunLight = sun.GetComponent<Light>();
+            var spotLight = spot.GetComponent<Light>();
+
+            sunLight.enabled = true;
+            spotLight.enabled = false;
+
             var players = Transform.FindObjectsOfType<PlayerController>();
             foreach (PlayerController p in players) {
                 p.GetComponentInChildren<Light>().enabled = false;
@@ -44,10 +51,12 @@ public class ShaderTriggerScript : MonoBehaviour {
                     Camera.main.backgroundColor = Color.black;
                     
                     RenderSettings.ambientIntensity = 0;
+                    RenderSettings.reflectionIntensity = 0;
                     foreach (PlayerController p in players) {
                         p.GetComponentInChildren<Light>().enabled = true;
                     }
-                    light.enabled = false;
+                    sunLight.enabled = false;
+                    spotLight.enabled = true;
                     break;
                 case TotemScript.DisplayModifier.Reverse:
                     shader = reverse;
