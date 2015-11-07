@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Shaders/Wobbly.shader.meta
 guid: e4060bc7ecf76d9439a51b3c45dced5d
 timeCreated: 1446871734
+=======
+guid: 7e76c10ea3862db4daa44fa6f619379a
+timeCreated: 1446872077
+>>>>>>> cd52253955ac9cff63fd8837ccc8afa054409b45:Assets/Shaders/Wobbly.shader.meta
 licenseType: Free
 ShaderImporter:
   defaultTextures: []

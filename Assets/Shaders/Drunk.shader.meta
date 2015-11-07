@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Shaders/Drunk.shader.meta
 guid: 4ad4c6aab7fc5ec478396661b80bcd99
 timeCreated: 1446871734
+=======
+guid: 26f2260de75a26d448366556e4af99cf
+timeCreated: 1446872074
+>>>>>>> cd52253955ac9cff63fd8837ccc8afa054409b45:Assets/Shaders/Drunk.shader.meta
 licenseType: Free
 ShaderImporter:
   defaultTextures: []
