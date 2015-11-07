@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 
     public string InputKey;
 
+    public Animator animator;
+
     public float HorizontalSpeed = 20.0f;
     public float VerticalSpeed = 400.0f;
     private int jumpCount;
@@ -27,11 +29,13 @@ public class PlayerController : MonoBehaviour {
 
         Vector2 movement = new Vector2(h, 0f);
 
+        animator.SetBool("Jumping", true);
+        animator.SetBool("Walking", h == 0 ? false : true);
+
         if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 1)
         {
             aus.clip = Jump;
             aus.Play();
-
 
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
@@ -47,6 +51,8 @@ public class PlayerController : MonoBehaviour {
                 aus.Play();
             }
             jumpCount = 0;
+
+            animator.SetBool("Jumping", false);
         }
         RotatePlayer();
     }
