@@ -17,7 +17,6 @@ public class ShaderTriggerScript : MonoBehaviour {
     void Start () {
         var t = totem.GetComponent<TotemScript>();
         t.notifyDisplay += (d) => {
-            d = TotemScript.DisplayModifier.Darkness;
             Debug.Log(d.ToString());
 
             Camera.main.clearFlags = CameraClearFlags.Skybox;
