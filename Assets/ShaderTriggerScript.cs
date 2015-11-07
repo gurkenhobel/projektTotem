@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShaderTriggerScript : MonoBehaviour {
 
-    public Shader shader;
+    private Shader shader;
 
     private Material mat;
     

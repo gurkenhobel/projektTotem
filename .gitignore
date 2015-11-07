@@ -75,7 +75,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -243,9 +242,9 @@ FakesAssemblies/
 _Pvt_Extensions
 
 #Schrott, der einfach keinen Bock hat
-!.meta
-!.prefab
-!.cs
-!.wav
-!.blend
-!.shader
+!*.meta
+!*.prefab
+!*.cs
+!*.wav
+!*.blend
+!*.shader
