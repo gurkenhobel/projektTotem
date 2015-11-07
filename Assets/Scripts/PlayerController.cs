@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (GetComponent<Transform>().position.y < -6) {
+            Debug.Log(gameObject.tag + " is out of map.");
+        }
         bool tooFast = Mathf.Abs(rb.velocity.x) > MaxHorizontalSpeed;
         var input = Input.GetAxis("Horizontal_" + InputKey);
         var h = tooFast ? MaxHorizontalSpeed - (HorizontalSpeed * input) : HorizontalSpeed * input;
