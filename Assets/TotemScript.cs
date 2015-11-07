@@ -69,10 +69,6 @@ public class TotemScript : MonoBehaviour {
         movement = MovementModifier.Normal;
         attack = AttackModifier.Punch;
         display = DisplayModifier.Clear;
-
-        notifyMovement += (m) => {
-            Debug.Log(m.ToString());
-        };
 	}
 
 	// Update is called once per frame
