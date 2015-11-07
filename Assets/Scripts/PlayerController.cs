@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     public float VerticalSpeed = 400.0f;
     public float MaxHorizontalSpeed = 20;
     private int jumpCount;
+    private float JumpStart = 0;
 
     // Use this for initialization
     void Start() {
@@ -31,11 +32,11 @@ public class PlayerController : MonoBehaviour {
         var h = tooFast ? MaxHorizontalSpeed - (HorizontalSpeed * input) : HorizontalSpeed * input;
 
         Vector2 movement = new Vector2(-h, 0f);
-
-        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount == 0) {
+        if (Time.time - JumpStart > 0.2F) JumpStart = 0;
+        if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount == 0 && JumpStart == 0) {
             aus.clip = Jump;
             aus.Play();
-
+            JumpStart = Time.time;
             movement += Vector2.up * VerticalSpeed;
             jumpCount++;
         }
