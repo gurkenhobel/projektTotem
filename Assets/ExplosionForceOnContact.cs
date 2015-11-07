@@ -26,6 +26,6 @@ public class ExplosionForceOnContact : MonoBehaviour
             }
         }
 
-        collision.collider.attachedRigidbody.AddForceAtPosition(collision.contacts[0].normal * ExplosionForce, collision.contacts[0].point);
+        Destroy(gameObject);
     }
 }
