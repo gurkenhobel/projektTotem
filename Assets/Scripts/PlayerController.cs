@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     private int jumpCount = 0;
     private float JumpStart = 0;
 
+    public bool isDead { get; private set; }
+
     // Use this for initialization
     void Start() {
         rb = GetComponent<Rigidbody2D>();

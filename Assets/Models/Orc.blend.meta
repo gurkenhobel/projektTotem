@@ -135,6 +135,11 @@ ModelImporter:
     7400016: PunchLeft
     7400018: PunchRight
     7400020: Walk
+    7400022: Dead
+    7400024: Die
+    7400026: JumpFireball
+    7400028: JumpStone
+    7400030: TheStone
     9500000: //RootNode
     13700000: Group427
   materials:
