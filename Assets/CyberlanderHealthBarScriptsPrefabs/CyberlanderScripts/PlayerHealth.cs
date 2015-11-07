@@ -12,12 +12,14 @@ public class PlayerHealth : MonoBehaviour {
 ;    }
 
     void decreaseHealth() {
+        if (health_state>=0)
         health_state -= 2f;
         float health_calculated = health_state / health_max;
         setHealthBar(health_calculated);
     }
 
     void increaseHealth() {
+        if (health_state<=100)
         health_state += 2f;
         float health_calculated = health_state / health_max;
         setHealthBar(health_calculated);
