@@ -5,6 +5,7 @@ public class ExplosionForceOnContact : MonoBehaviour
 {
     public float ExplosionForce = 3000F;
     public float ExplosionRadius = 10F;
+    float damage = 20;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -27,8 +28,7 @@ public class ExplosionForceOnContact : MonoBehaviour
                 PlayerHealth opferHealth = opfer.GetComponent<PlayerHealth>();
                 if (opferHealth != null)
                 {
-                    float damage = 20;
-                    opferHealth.health_state -= damage * Mathf.Lerp(1F, 0F, distance / ExplosionRadius);
+                    opferHealth.decreaseHealth(damage * Mathf.Lerp(1F, 0F, distance / ExplosionRadius));
                 }
             }
         }
