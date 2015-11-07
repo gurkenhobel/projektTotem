@@ -13,8 +13,9 @@ public class PlayerController : MonoBehaviour {
 
     public Animator animator;
 
-    public float HorizontalSpeed = 20.0f;
+    public float HorizontalSpeed = 50.0f;
     public float VerticalSpeed = 400.0f;
+    public float MaxHorizontalSpeed = 20;
     private int jumpCount;
 
 	// Use this for initialization
@@ -24,10 +25,12 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        float h = HorizontalSpeed * Input.GetAxis("Horizontal_" + InputKey);
+	void Update ()
+	{
+	    bool isDrüber = Mathf.Abs(rb.velocity.x) < MaxHorizontalSpeed;
+        var h = isDrüber ? HorizontalSpeed*Input.GetAxis("Horizontal_" + InputKey) : 0;
 
-        Vector2 movement = new Vector2(-h, 0f);
+	    Vector2 movement = new Vector2(-h, 0f);
 
         animator.SetBool("Jumping", true);
         animator.SetBool("Walking", h == 0 ? false : true);
@@ -41,9 +44,13 @@ public class PlayerController : MonoBehaviour {
             jumpCount++;
         }
 
-        rb.AddForce(movement);
+        Debug.Log("isDrüber: " + isDrüber);
+        Debug.Log("MaxHorizontalSpeed: " + MaxHorizontalSpeed);
+        Debug.Log("h: " + h);
+        Debug.Log("Speed: " + Mathf.Abs(rb.velocity.x));
+	    rb.AddForce(new Vector2(Mathf.Sign(movement.x) != Mathf.Sign(rb.velocity.x) ? movement.x* 3 : movement.x, movement.y));    //wenn man die kommentare raus nimmt, gilt extra speed nur fürs bremsen
 
-        if(rb.velocity.y == 0)
+	    if(rb.velocity.y == 0)
         {
             if(jumpCount > 0)
             {
