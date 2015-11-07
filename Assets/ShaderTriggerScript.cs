@@ -18,6 +18,13 @@ public class ShaderTriggerScript : MonoBehaviour {
         var t = totem.GetComponent<TotemScript>();
         t.notifyDisplay += (d) => {
             Debug.Log(d.ToString());
+
+            Camera.main.clearFlags = CameraClearFlags.Skybox;
+            RenderSettings.ambientIntensity = 1;
+            var sun = GameObject.Find("Sun");
+            var light = sun.GetComponent<Light>();
+            light.enabled = true;
+
             switch (d) {
                 case TotemScript.DisplayModifier.Wobbly:
                     shader = wobbly;
@@ -28,8 +35,17 @@ public class ShaderTriggerScript : MonoBehaviour {
                 case TotemScript.DisplayModifier.Shake:
                     shader = drunk;
                     break;
+                case TotemScript.DisplayModifier.Darkness:
+                    Camera.main.clearFlags = CameraClearFlags.SolidColor;
+                    Camera.main.backgroundColor = Color.black;
+                    
+                    RenderSettings.ambientIntensity = 0;
+                    var players = Transform.FindObjectsOfType<PlayerController>();
+
+                    light.enabled = false;
+                    break;
             }
-            mat = new UnityEngine.Material(shader);
+            if (shader != null) mat = new UnityEngine.Material(shader);
         };
 	}
 
