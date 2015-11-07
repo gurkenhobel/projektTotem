@@ -242,3 +242,10 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+#Schrott, der einfach keinen Bock hat
+!.meta
+!.prefab
+!.cs
+!.wav
+!.blend
+!.shader
