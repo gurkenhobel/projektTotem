@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour {
 
     public Animator animator;
 
-    public const float HorizontalSpeed = 1200f;
-    public const float VerticalSpeed = 1600f;
+    public const float HorizontalSpeed = 800f;
+    public const float VerticalSpeed = 36f;
     private int jumpCount = 0;
     private float JumpStart = 0;
 
@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour {
     const float MAX_X_SPEED = 500F;
 
     public bool isDead { get; set; }
+
+    public bool canJump { get; private set; }
 
     // Use this for initialization
     void Start() {
@@ -65,6 +67,8 @@ public class PlayerController : MonoBehaviour {
             lastVInput = vInput;
             var h = HorizontalSpeed * hInput;
             var v = 0F;
+
+            bool jumpedThisUpdate = false;
             if (jumpCount < 2 && startJump) {
                 aus.clip = Jump;
                 aus.Play();
@@ -74,27 +78,18 @@ public class PlayerController : MonoBehaviour {
                 jumpCount++;
 
                 animator.SetBool("Jumping", true);
+                jumpedThisUpdate = true;
             }
             
             Vector2 accel = new Vector2(-h, v);
 
             float delta = Time.deltaTime;
             //rb.position += delta * (rb.velocity + delta * accel / 2);
-            rb.velocity = new Vector2(delta * accel.x, rb.velocity.y + delta * accel.y);
+            rb.velocity = new Vector2(delta * accel.x, jumpedThisUpdate ? accel.y : rb.velocity.y);
 
             if (Math.Abs(accel.x) < 0.1) rb.velocity = new Vector2(rb.velocity.x * (1 - delta * 32).Clamp(0, 1), rb.velocity.y);
 
             RotatePlayer();
-            if (Math.Abs(rb.velocity.y) < 0.1F) {
-                if (jumpCount > 0) {
-                    aus.clip = Land;
-                    aus.Play();
-                }
-                jumpCount = 0;
-
-                animator.SetBool("Jumping", false);
-            }
-
             animator.SetBool("Walking", Math.Abs(rb.velocity.x) > 0.3F);
         }
     }
@@ -105,6 +100,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D collider) {
+        foreach (ContactPoint2D contact in collider.contacts) {
+            if (contact.point.y < transform.GetComponent<Collider2D>().transform.position.y) {
+                if (jumpCount > 0) {
+                    aus.clip = Land;
+                    aus.Play();
+                }
+                animator.SetBool("Jumping", false);
+                jumpCount = 0;
+            }
+        }
+
         if (totem.bouncy) {
             var other = collider.rigidbody.GetComponent<PlayerController>();
             if (other != null) {
