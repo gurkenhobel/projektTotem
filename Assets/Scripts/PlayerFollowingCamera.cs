@@ -10,7 +10,6 @@ public class PlayerFollowingCamera : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         restingPostition = transform.position;
-        Debug.Log(restingPostition);
 	}
 	
 	// Update is called once per frame

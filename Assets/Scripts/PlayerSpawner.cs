@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerSpawner : MonoBehaviour
 {
+    public TotemScript totem;
     public PlayerController PlayerPrefab;
     public List<Material> Materials; 
     public bool enableKeyboardPlayer;
@@ -66,6 +67,16 @@ public class PlayerSpawner : MonoBehaviour
             currentPlayers[currentPlayers.Count - 1].InputKey = "Keyboard";
         }
         onlyOnePlayerActive = currentPlayers.Count == 1;
+
+        if (totem != null)
+        {
+            if(totem.notifyMovement != null)
+                totem.notifyMovement(totem.movement);
+            if (totem.notifyAttack != null)
+                totem.notifyAttack(totem.attack);
+            if (totem.notifyDisplay != null)
+                totem.notifyDisplay(totem.display);
+        }
     }
 
 	// Update is called once per frame

@@ -9,8 +9,6 @@ public class Fireball : AttackScript
     public override void UseAttack(Transform attackingPlayerTransform, Animator attackingPlayerAnimator)
     {
         //Todo epic shit from here..
-        Debug.Log("Fireball");
-
         attackingPlayerAnimator.SetTrigger("Fireball");
 
         Vector3 playerPos = attackingPlayerTransform.position;
