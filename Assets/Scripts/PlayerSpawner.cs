@@ -37,13 +37,23 @@ public class PlayerSpawner : MonoBehaviour
         currentPlayers.Clear();
 
         // spawn new players
-        for(int i = 0; i < Input.GetJoystickNames().Length; ++i)
+        foreach (string joystickName in Input.GetJoystickNames())
         {
-            currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[i].position, Quaternion.identity));
-            currentPlayers[currentPlayers.Count - 1].InputKey = "Pad" + (i + 1);
+            if(joystickName != "")
+            {
+                Debug.Log("Spawning " + joystickName + "-Player");
+
+                int playerCount = currentPlayers.Count;
+
+                currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity));
+                currentPlayers[currentPlayers.Count - 1].InputKey = "Pad" + (playerCount + 1);
+
+            }
         }
         if (enableKeyboardPlayer)
         {
+            Debug.Log("Spawning Keyboard-Player");
+
             currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[currentPlayers.Count].position, Quaternion.identity));
             currentPlayers[currentPlayers.Count - 1].InputKey = "Keyboard";
         }

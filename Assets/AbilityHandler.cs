@@ -32,7 +32,7 @@ public class AbilityHandler : MonoBehaviour {
     public void UpdateAbility(TotemScript.AttackModifier newState) {
         var AttackScripts = AllAbilities.GetComponents<AttackScript>();
         foreach (AttackScript atkScript in AttackScripts) {
-            Debug.Log(atkScript.GetType().Name + " " + newState.ToString());
+
             if (atkScript.GetType().Name == newState.ToString())
             {
                 currentAbility = atkScript;
