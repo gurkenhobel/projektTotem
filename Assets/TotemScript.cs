@@ -32,7 +32,7 @@ public class TotemScript : MonoBehaviour {
 
     [SerializeField]
     private float movementTime = 30, attackTime = 60, displayTime = 90;
-    private float movementState = 1.0F, attackState = 1.0F, displayState;
+    private float movementState, attackState, displayState;
     private Vector3 localMovDef, localAttDef, localDisDef;
 
     public MovementModifier movement { get; private set; }
@@ -78,9 +78,9 @@ public class TotemScript : MonoBehaviour {
         var paper = bottom.GetComponentsInChildren<MeshRenderer>()[1];
         paper.material.mainTexture = albedo;
     }
-    
-	// Use this for initialization
-	void Start () {
+
+	
+    void OnEnable () {
         movement = MovementModifier.Normal;
         attack = AttackModifier.Punch;
         display = DisplayModifier.Clear;
