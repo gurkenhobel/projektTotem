@@ -42,21 +42,22 @@ public class PlayerSpawner : MonoBehaviour
         {
             if(joystickName != "")
             {
-                Debug.Log("Spawning " + joystickName + "-Player");
-
                 int playerCount = currentPlayers.Count;
 
-                currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity));
-                currentPlayers[currentPlayers.Count - 1].InputKey = "Pad" + (playerCount + 1);
+                PlayerController player = (PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity);
+                player.InputKey = "Pad" + (playerCount + 1);
+                currentPlayers.Add(player);
 
+                Debug.Log("Spawning " + joystickName + "-Player, listening to " + player.InputKey);
             }
         }
         if (enableKeyboardPlayer)
         {
-            Debug.Log("Spawning Keyboard-Player");
+            PlayerController player = (PlayerController)Instantiate(PlayerPrefab, StartPositions[currentPlayers.Count].position, Quaternion.identity);
+            player.InputKey = "Keyboard";
+            currentPlayers.Add(player);
 
-            currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[currentPlayers.Count].position, Quaternion.identity));
-            currentPlayers[currentPlayers.Count - 1].InputKey = "Keyboard";
+            Debug.Log("Spawning Keyboard-Player, listening to " + player.InputKey);
         }
         onlyOnePlayerActive = currentPlayers.Count == 1;
 
