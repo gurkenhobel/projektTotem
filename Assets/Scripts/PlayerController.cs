@@ -18,62 +18,75 @@ public class PlayerController : MonoBehaviour {
 
     public Animator animator;
 
-    public float HorizontalSpeed = 50.0f;
-    public float VerticalSpeed = 400.0f;
-    public float MaxHorizontalSpeed = 20;
+    public const float HorizontalSpeed = 1600f;
+    public const float VerticalSpeed = 1600f;
     private int jumpCount = 0;
     private float JumpStart = 0;
+
+    private float lastVInput = 0;
+
+    private Vector2 inputAccel;
+
+    const float MAX_X_SPEED = 500F;
 
     public bool isDead { get; set; }
 
     // Use this for initialization
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         aus = GetComponent<AudioSource>();
         isDead = false;
     }
 
-    void FixedUpdate()
-    {
-        if (!isDead)
-        {
-            if (rb.position.y < -6)
-            {
-                Debug.Log(gameObject.name + " is out of map.");
-                isDead = true;
-            }
-            bool tooFast = Mathf.Abs(rb.velocity.x) > MaxHorizontalSpeed;
-            var input = Input.GetAxis("Horizontal_" + InputKey);
-            var h = tooFast ? MaxHorizontalSpeed - (HorizontalSpeed * input) : HorizontalSpeed * input;
+    void FixedUpdate() {
+        if (!isDead) {
+            
+        }
+    }
 
-            Vector2 movement = new Vector2(-h, 0f);
-            if (Input.GetButtonDown("Jump_" + InputKey) && jumpCount < 2) {
-                aus.clip = Jump;
-                aus.Play();
-                movement += Vector2.up * VerticalSpeed;
-                jumpCount++;
-                animator.SetBool("Jumping", true);
-            }
-
-        
-            if (Mathf.Sign(movement.x) != Math.Sign(rb.velocity.x))
-            {
-                // Faster braking
-                rb.AddForce(new Vector2(movement.x*3, movement.y));
-            }
-            else rb.AddForce(movement);
+    void LateUpdate() {
+        if (rb.velocity.x > MAX_X_SPEED) {
+            rb.velocity = new Vector2(MAX_X_SPEED, rb.velocity.y);
         }
     }
 
     // Update is called once per frame
     void Update() {
-        if (!isDead)
-        {
+        if (!isDead) {
+            if (rb.position.y < -6) {
+                Debug.Log(gameObject.name + " is out of map.");
+                isDead = true;
+            }
+            
+            var hInput = Input.GetAxis("Horizontal_" + InputKey);
+            var vInput = Input.GetAxis("Jump_" + InputKey);
+            var startJump = lastVInput == 0 && vInput - lastVInput > 0F;
+            lastVInput = vInput;
+            var h = HorizontalSpeed * hInput;
+            var v = 0F;
+            if (jumpCount < 2 && startJump) {
+                aus.clip = Jump;
+                aus.Play();
+
+                v = VerticalSpeed;
+                
+                jumpCount++;
+
+                animator.SetBool("Jumping", true);
+            }
+            
+            Vector2 accel = new Vector2(-h, v);
+
+            float delta = Time.deltaTime;
+            //rb.position += delta * (rb.velocity + delta * accel / 2);
+            rb.velocity = new Vector2(delta * accel.x, rb.velocity.y + delta * accel.y);
+
+            if (Math.Abs(accel.x) < 0.1) rb.velocity = new Vector2(rb.velocity.x * (1 - delta * 32).Clamp(0, 1), rb.velocity.y);
+
             RotatePlayer();
-            if (rb.velocity.y == 0)
-            {
-                if (jumpCount > 0)
-                {
+            if (Math.Abs(rb.velocity.y) < 0.1F) {
+                if (jumpCount > 0) {
                     aus.clip = Land;
                     aus.Play();
                 }
