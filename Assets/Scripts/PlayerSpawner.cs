@@ -4,9 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public TotemScript totem;
-    public PlayerController PlayerPrefab;
-    public List<Material> Materials; 
+    public List<PlayerController> PlayerPrefab;
     public bool enableKeyboardPlayer;
     public Transform[] StartPositions;
     bool onlyOnePlayerActive;
@@ -47,36 +45,18 @@ public class PlayerSpawner : MonoBehaviour
 
                 int playerCount = currentPlayers.Count;
 
-                currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity));
+                currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab[playerCount - 1], StartPositions[playerCount].position, Quaternion.identity));
                 currentPlayers[currentPlayers.Count - 1].InputKey = "Pad" + (playerCount + 1);
-                /*currentPlayers[currentPlayers.Count - 1].GetComponentInParent<GameObject>()
-                    .GetComponent<SkinnedMeshRenderer>().GetComponent<Renderer>().materials[0] =
-                    Materials[currentPlayers.Count - 1];*/
-                var unsertrottel = GameObject.Find("Group427");
-                var machsnichtsoschwer = unsertrottel.GetComponent<SkinnedMeshRenderer>();
-                var comeonbaby = machsnichtsoschwer;
-                comeonbaby.materials[0] =
-                    Materials[currentPlayers.Count - 1];
             }
         }
         if (enableKeyboardPlayer)
         {
             Debug.Log("Spawning Keyboard-Player");
 
-            currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[currentPlayers.Count].position, Quaternion.identity));
+            currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab[currentPlayers.Count - 1], StartPositions[currentPlayers.Count].position, Quaternion.identity));
             currentPlayers[currentPlayers.Count - 1].InputKey = "Keyboard";
         }
         onlyOnePlayerActive = currentPlayers.Count == 1;
-
-        if (totem != null)
-        {
-            if(totem.notifyMovement != null)
-                totem.notifyMovement(totem.movement);
-            if (totem.notifyAttack != null)
-                totem.notifyAttack(totem.attack);
-            if (totem.notifyDisplay != null)
-                totem.notifyDisplay(totem.display);
-        }
     }
 
 	// Update is called once per frame
