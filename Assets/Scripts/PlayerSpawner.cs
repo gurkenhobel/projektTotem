@@ -78,7 +78,8 @@ public class PlayerSpawner : MonoBehaviour
                 numDeadPlayers++;
             }
         }
-        if (currentPlayers.Count <= numDeadPlayers + 1 && !onlyOnePlayerActive)
+        if (!onlyOnePlayerActive && currentPlayers.Count <= numDeadPlayers + 1
+            || onlyOnePlayerActive && currentPlayers.Count <= numDeadPlayers)
         {
             RespawnPlayers();
         }
