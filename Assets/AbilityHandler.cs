@@ -5,6 +5,8 @@ public class AbilityHandler : MonoBehaviour {
     public Transform Totem;
     private AttackScript currentAbility;
 
+    public Animator animator;
+
     float Timer;
 
     void Start()
@@ -20,7 +22,7 @@ public class AbilityHandler : MonoBehaviour {
             if (Timer >= currentAbility.coolDownTime)
             {
                 if(!GetComponent<PlayerController>().isDead)
-                    currentAbility.UseAttack(transform);
+                    currentAbility.UseAttack(transform,animator);
                 Timer = 0.0F;
             }
         }
