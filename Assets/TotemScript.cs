@@ -15,10 +15,7 @@ public class TotemScript : MonoBehaviour {
 
     public enum AttackModifier {
         Punch,
-        Fireball,
-        Soulreaper,
-        Reverse,
-        Balanced
+        Fireball
     }
 
     public enum DisplayModifier {
@@ -35,7 +32,7 @@ public class TotemScript : MonoBehaviour {
 
     [SerializeField]
     private float movementTime = 30, attackTime = 60, displayTime = 90;
-    private float movementState, attackState, displayState;
+    private float movementState = 1.0F, attackState = 1.0F, displayState;
     private Vector3 localMovDef, localAttDef, localDisDef;
 
     public MovementModifier movement { get; private set; }
