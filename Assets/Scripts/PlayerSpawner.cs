@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public List<PlayerController> PlayerPrefab;
+    public TotemScript totem;
+    public PlayerController PlayerPrefab;
     public bool enableKeyboardPlayer;
     public Transform[] StartPositions;
     bool onlyOnePlayerActive;
@@ -41,22 +42,34 @@ public class PlayerSpawner : MonoBehaviour
         {
             if(joystickName != "")
             {
-                Debug.Log("Spawning " + joystickName + "-Player");
-
                 int playerCount = currentPlayers.Count;
 
-                currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab[playerCount - 1], StartPositions[playerCount].position, Quaternion.identity));
-                currentPlayers[currentPlayers.Count - 1].InputKey = "Pad" + (playerCount + 1);
+                PlayerController player = (PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity);
+                player.InputKey = "Pad" + (playerCount + 1);
+                currentPlayers.Add(player);
+
+                Debug.Log("Spawning " + joystickName + "-Player, listening to " + player.InputKey);
             }
         }
         if (enableKeyboardPlayer)
         {
-            Debug.Log("Spawning Keyboard-Player");
+            PlayerController player = (PlayerController)Instantiate(PlayerPrefab, StartPositions[currentPlayers.Count].position, Quaternion.identity);
+            player.InputKey = "Keyboard";
+            currentPlayers.Add(player);
 
-            currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab[currentPlayers.Count - 1], StartPositions[currentPlayers.Count].position, Quaternion.identity));
-            currentPlayers[currentPlayers.Count - 1].InputKey = "Keyboard";
+            Debug.Log("Spawning Keyboard-Player, listening to " + player.InputKey);
         }
         onlyOnePlayerActive = currentPlayers.Count == 1;
+
+        if (totem != null)
+        {
+            if(totem.notifyMovement != null)
+                totem.notifyMovement(totem.movement);
+            if (totem.notifyAttack != null)
+                totem.notifyAttack(totem.attack);
+            if (totem.notifyDisplay != null)
+                totem.notifyDisplay(totem.display);
+        }
     }
 
 	// Update is called once per frame
