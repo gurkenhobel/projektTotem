@@ -17,6 +17,7 @@ public class Punch : AttackScript
         if (opfer)
         {
             opfer.rigidbody.AddForce(playerDir * 750);
+            opfer.rigidbody.GetComponent<PlayerHealth>().decreaseHealth(Damage);
         }
     }
 }
