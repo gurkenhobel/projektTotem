@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     public Animator animator;
 
-    public const float HorizontalSpeed = 1600f;
+    public const float HorizontalSpeed = 1200f;
     public const float VerticalSpeed = 1600f;
     private int jumpCount = 0;
     private float JumpStart = 0;
@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour {
             
             var hInput = Input.GetAxis("Horizontal_" + InputKey);
             var vInput = Input.GetAxis("Jump_" + InputKey);
-            if (hInput != 0) Debug.Log(hInput);
             var startJump = lastVInput == 0 && vInput - lastVInput > 0F;
             lastVInput = vInput;
             var h = HorizontalSpeed * hInput;
