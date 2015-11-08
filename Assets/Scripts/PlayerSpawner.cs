@@ -20,8 +20,8 @@ public class PlayerSpawner : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start ()
-    {
+	void Start () {
+        enableKeyboardPlayer = GetComponent<GameSettings>().KeyboardPlayerEnabled;
         RespawnPlayers();
     }
 	
