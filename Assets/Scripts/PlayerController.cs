@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour {
             
             var hInput = Input.GetAxis("Horizontal_" + InputKey);
             var vInput = Input.GetAxis("Jump_" + InputKey);
+            if (hInput != 0) Debug.Log(hInput);
             var startJump = lastVInput == 0 && vInput - lastVInput > 0F;
             lastVInput = vInput;
             var h = HorizontalSpeed * hInput;
