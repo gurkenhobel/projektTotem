@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerSpawner : MonoBehaviour
 {
     public PlayerController PlayerPrefab;
+    public List<Material> Materials; 
     public bool enableKeyboardPlayer;
     public Transform[] StartPositions;
     bool onlyOnePlayerActive;
@@ -47,7 +48,14 @@ public class PlayerSpawner : MonoBehaviour
 
                 currentPlayers.Add((PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity));
                 currentPlayers[currentPlayers.Count - 1].InputKey = "Pad" + (playerCount + 1);
-
+                /*currentPlayers[currentPlayers.Count - 1].GetComponentInParent<GameObject>()
+                    .GetComponent<SkinnedMeshRenderer>().GetComponent<Renderer>().materials[0] =
+                    Materials[currentPlayers.Count - 1];*/
+                var unsertrottel = GameObject.Find("Group427");
+                var machsnichtsoschwer = unsertrottel.GetComponent<SkinnedMeshRenderer>();
+                var comeonbaby = machsnichtsoschwer;
+                comeonbaby.materials[0] =
+                    Materials[currentPlayers.Count - 1];
             }
         }
         if (enableKeyboardPlayer)
