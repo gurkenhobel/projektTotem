@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerSpawner : MonoBehaviour
 {
     public TotemScript totem;
-    public PlayerController PlayerPrefab;
+    public List<PlayerController> PlayerPrefab;
     public bool enableKeyboardPlayer;
     public Transform[] StartPositions;
     bool onlyOnePlayerActive;
@@ -44,7 +44,7 @@ public class PlayerSpawner : MonoBehaviour
             {
                 int playerCount = currentPlayers.Count;
 
-                PlayerController player = (PlayerController)Instantiate(PlayerPrefab, StartPositions[playerCount].position, Quaternion.identity);
+                PlayerController player = (PlayerController)Instantiate(PlayerPrefab[currentPlayers.Count], StartPositions[playerCount].position, Quaternion.identity);
                 player.InputKey = "Pad" + (playerCount + 1);
                 currentPlayers.Add(player);
 
@@ -53,7 +53,7 @@ public class PlayerSpawner : MonoBehaviour
         }
         if (enableKeyboardPlayer)
         {
-            PlayerController player = (PlayerController)Instantiate(PlayerPrefab, StartPositions[currentPlayers.Count].position, Quaternion.identity);
+            PlayerController player = (PlayerController)Instantiate(PlayerPrefab[currentPlayers.Count], StartPositions[currentPlayers.Count].position, Quaternion.identity);
             player.InputKey = "Keyboard";
             currentPlayers.Add(player);
 
