@@ -6,10 +6,12 @@ public class Fireball : AttackScript
     public Rigidbody2D FireballPrefab;
     public float SpawnDistance = 2.0F;
 
-    public override void UseAttack(Transform attackingPlayerTransform)
+    public override void UseAttack(Transform attackingPlayerTransform, Animator attackingPlayerAnimator)
     {
         //Todo epic shit from here..
         Debug.Log("Fireball");
+
+        attackingPlayerAnimator.SetTrigger("Fireball");
 
         Vector3 playerPos = attackingPlayerTransform.position;
         Vector3 playerDir = attackingPlayerTransform.forward;
