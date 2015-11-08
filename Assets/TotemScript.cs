@@ -93,14 +93,17 @@ public class TotemScript : MonoBehaviour {
         localDisDef = bottom.transform.localRotation.eulerAngles;
 
         notifyMovement += (m) => {
+            Debug.Log("gravity: " + UnityEngine.Physics2D.gravity);
             switch (m) {
                 case MovementModifier.Normal:
                     // Nothing to be done here.
                     break;
                 case MovementModifier.GravityReduction:
                     setTopTexture(Resources.Load("gravred_albedo") as Texture);
-                    lowGravity = true;
-                    UnityEngine.Physics2D.gravity /= 2;
+                    if (!lowGravity) {
+                        UnityEngine.Physics2D.gravity /= 2;
+                        lowGravity = true;
+                    }
                     break;
                 case MovementModifier.Bounce:
                     bouncy = true;
@@ -110,7 +113,9 @@ public class TotemScript : MonoBehaviour {
                     break;
                 default:
                     bouncy = false;
-                    UnityEngine.Physics2D.gravity *= 2;
+                    if (lowGravity) {
+                        UnityEngine.Physics2D.gravity *= 2;
+                    }
                     lowGravity = false;
                     Time.timeScale = 1;
                     break;

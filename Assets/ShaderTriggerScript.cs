@@ -62,6 +62,7 @@ public class ShaderTriggerScript : MonoBehaviour {
                     break;
             }
             if (shader != null) mat = new UnityEngine.Material(shader);
+            else mat = null;
         };
 	}
 
