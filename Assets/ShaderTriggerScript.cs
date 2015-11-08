@@ -30,6 +30,9 @@ public class ShaderTriggerScript : MonoBehaviour {
                 p.GetComponentInChildren<Light>().enabled = false;
             }
 
+            var totemLight = totem.GetComponentInChildren<Light>();
+            totemLight.enabled = false;
+
             switch (d) {
                 case TotemScript.DisplayModifier.Wobbly:
                     shader = wobbly;
@@ -50,6 +53,7 @@ public class ShaderTriggerScript : MonoBehaviour {
                         p.GetComponentInChildren<Light>().enabled = true;
                     }
                     sunLight.enabled = false;
+                    totemLight.enabled = true;
                     break;
                 case TotemScript.DisplayModifier.Reverse:
                     shader = reverse;
