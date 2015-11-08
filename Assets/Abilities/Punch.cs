@@ -5,10 +5,9 @@ public class Punch : AttackScript
 {
     public float Damage = 5;
 
-    public override void UseAttack(Transform attackingPlayerTransform)
+    public override void UseAttack(Transform attackingPlayerTransform, Animator attackingPlayerAnimator)
     {
         //Todo epic shit from here..
-        Debug.Log("Punch");
 
         Vector3 playerPos = attackingPlayerTransform.position;
         Vector3 playerDir = attackingPlayerTransform.forward;

@@ -16,6 +16,11 @@ public class AbilityHandler : MonoBehaviour {
     }
     
     void Update() {
+        if (currentAbility == null)
+        {
+            UpdateAbility(Totem.attack);
+        }
+
         if (Input.GetButtonDown("Attack1_" + GetComponent<PlayerController>().InputKey))
         {
             if (currentAbility != null && Timer >= currentAbility.coolDownTime)
