@@ -104,6 +104,7 @@ public class TotemScript : MonoBehaviour {
             Time.timeScale = 1;
             
             switch (m) {
+                default:
                 case MovementModifier.Normal:
                     setTopTexture(Resources.Load("normalMovement_albedo") as Texture);
                     break;
@@ -127,6 +128,7 @@ public class TotemScript : MonoBehaviour {
 
         notifyAttack += (a) => {
             switch (a) {
+                default:
                 case AttackModifier.Fireball:
                     setMidTexture(Resources.Load("fireball_albedo") as Texture, Resources.Load("fireball_metallic") as Texture);
                     break;
@@ -138,6 +140,7 @@ public class TotemScript : MonoBehaviour {
 
         notifyDisplay += (d) => {
             switch (display) {
+                default:
                 case DisplayModifier.Clear:
                     setBottomTexture(Resources.Load("bottom_clear") as Texture);
                     break;
@@ -169,13 +172,21 @@ public class TotemScript : MonoBehaviour {
 
         if (movementState >= 1F) {
             movement = updateEnum(movement);
-            if (notifyMovement != null) notifyMovement(movement);
+            if (notifyMovement != null)
+            {
+                Debug.Log("Totem says: MOVEMENT-Modifier is " + attack.ToString());
+                notifyMovement(movement);
+            }
             movementState = 0F;
         }
 
         if (attackState >= 1F) {
             attack = updateEnum(attack);
-            if (notifyAttack != null) notifyAttack(attack);
+            if (notifyAttack != null)
+            {
+                Debug.Log("Totem says: ATTACK-Modifier is " + attack.ToString());
+                notifyAttack(attack);
+            }
             attackState = 0F;
         }
 
@@ -183,8 +194,12 @@ public class TotemScript : MonoBehaviour {
             display = updateEnum(display);
             if (display != DisplayModifier.Clear && UnityEngine.Random.value > 0.5)
                 display = DisplayModifier.Clear;
-            if (notifyDisplay != null) notifyDisplay(display);
-            displayState = 0F;
+            if (notifyDisplay != null)
+            {
+                Debug.Log("Totem says: DISPLAY-Modifier is " + display.ToString());
+                notifyDisplay(display);
+            }
+                displayState = 0F;
         }
 
         updateRotation(movementState, top.transform, localMovDef);
