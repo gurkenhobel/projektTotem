@@ -94,9 +94,18 @@ public class TotemScript : MonoBehaviour {
 
         notifyMovement += (m) => {
             Debug.Log("gravity: " + UnityEngine.Physics2D.gravity);
+            
+            bouncy = false;
+            if (lowGravity)
+            {
+                UnityEngine.Physics2D.gravity *= 2;
+            }
+            lowGravity = false;
+            Time.timeScale = 1;
+            
             switch (m) {
                 case MovementModifier.Normal:
-                    // Nothing to be done here.
+                    setTopTexture(Resources.Load("normalMovement_albedo") as Texture);
                     break;
                 case MovementModifier.GravityReduction:
                     setTopTexture(Resources.Load("gravred_albedo") as Texture);
@@ -106,18 +115,12 @@ public class TotemScript : MonoBehaviour {
                     }
                     break;
                 case MovementModifier.Bounce:
+                    setTopTexture(Resources.Load("bounce_albedo") as Texture);
                     bouncy = true;
                     break;
                 case MovementModifier.SpeedUp:
+                    setTopTexture(Resources.Load("speedUp_albedo") as Texture);
                     Time.timeScale = 1.4F;
-                    break;
-                default:
-                    bouncy = false;
-                    if (lowGravity) {
-                        UnityEngine.Physics2D.gravity *= 2;
-                    }
-                    lowGravity = false;
-                    Time.timeScale = 1;
                     break;
             }
         };
@@ -126,6 +129,9 @@ public class TotemScript : MonoBehaviour {
             switch (a) {
                 case AttackModifier.Fireball:
                     setMidTexture(Resources.Load("fireball_albedo") as Texture, Resources.Load("fireball_metallic") as Texture);
+                    break;
+                case AttackModifier.Punch:
+                    setMidTexture(Resources.Load("punch_albedo") as Texture, Resources.Load("punch_albedo") as Texture);
                     break;
             }
         };
