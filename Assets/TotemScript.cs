@@ -93,8 +93,6 @@ public class TotemScript : MonoBehaviour {
         localDisDef = bottom.transform.localRotation.eulerAngles;
 
         notifyMovement += (m) => {
-            Debug.Log("gravity: " + UnityEngine.Physics2D.gravity);
-            
             bouncy = false;
             if (lowGravity)
             {
@@ -174,7 +172,7 @@ public class TotemScript : MonoBehaviour {
             movement = updateEnum(movement);
             if (notifyMovement != null)
             {
-                Debug.Log("Totem says: MOVEMENT-Modifier is " + attack.ToString());
+                Debug.Log("Totem says: MOVEMENT-Modifier is " + movement.ToString());
                 notifyMovement(movement);
             }
             movementState = 0F;
@@ -199,7 +197,7 @@ public class TotemScript : MonoBehaviour {
                 Debug.Log("Totem says: DISPLAY-Modifier is " + display.ToString());
                 notifyDisplay(display);
             }
-                displayState = 0F;
+            displayState = 0F;
         }
 
         updateRotation(movementState, top.transform, localMovDef);

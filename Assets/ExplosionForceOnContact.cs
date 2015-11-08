@@ -9,8 +9,6 @@ public class ExplosionForceOnContact : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("EXPLOSION");
-
         Vector2 explosionPos = transform.position;
 
         Collider2D[] opfers = Physics2D.OverlapCircleAll(transform.position, ExplosionRadius);
